@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muối Cá Rau Sam Biển Cà Mau</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & Pacifico from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+            color: #1a202c;
+        }
+
+        .primary-color-bg {
+            background-color: #4a7c59;
+        }
+
+        .secondary-color-bg {
+            background-color: #6a9c7c;
+        }
+
+        .accent-color {
+            color: #ff8c00;
+        }
+
+        .header-bg {
+            background-color: #f0fdf4;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+
+            .mobile-menu.active {
+                display: flex;
+            }
+        }
+
+        /* Custom modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* Smooth scrolling behavior for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header & Hero Section -->
+    <header class="header-bg relative flex flex-col items-center justify-center text-center p-4 sm:p-8">
+        <!-- Navigation Bar (Logo, Cart, Support) -->
+        <nav class="absolute top-0 left-0 right-0 p-4 bg-transparent backdrop-blur-sm z-50">
+            <div class="container mx-auto flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#home" id="home-link" class="flex-shrink-0">
+                    <img src="images/logo.jpg" alt="Logo Muối Cá Rau Sam Biển" class="h-10 w-auto rounded-md">
+                </a>
+
+                <!-- Shopping Cart & Support & Mobile Menu Button -->
+                <div class="flex items-center space-x-4">
+                    <a href="#cart-page" id="cart-link" class="relative flex items-center text-gray-800 hover:text-emerald-700 transition-colors" title="Giỏ hàng">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.707.707 1.707H17m0-14v6m0 0v6m0-6h6m-6 0h-6" />
+                        </svg>
+                        <span class="font-semibold text-lg">Giỏ hàng</span>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="#contact" class="flex items-center text-gray-800 hover:text-emerald-700 transition-colors md:flex hidden" title="Hỗ trợ">
+                        Hỗ trợ
+                    </a>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Second Navigation Bar (Login, Search and Links) -->
+        <div class="absolute top-16 left-0 right-0 p-4 md:p-0 z-40 bg-white md:bg-transparent backdrop-blur-sm md:backdrop-blur-none md:mt-4">
+            <div class="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-6">
+                 <!-- Login/Registration -->
+                <div class="w-full md:w-auto text-center md:text-left">
+                    <button id="login-btn" class="text-sm md:text-base font-semibold text-emerald-700 hover:underline">
+                        Đăng nhập
+                    </button>
+                </div>
+                <!-- Search Bar -->
+                <div class="relative w-full md:max-w-md">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <button id="search-button" class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 hover:text-emerald-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-10">
+                    <a href="#story" class="hover:text-gray-700 transition-colors">Câu Chuyện</a>
+                    <a href="#products" class="hover:text-gray-700 transition-colors">Sản Phẩm</a>
+                    <a href="#recipe-generator" class="hover:text-gray-700 transition-colors">Gợi Ý Món</a>
+                    <a href="#order-history" id="order-history-link" class="hover:text-gray-700 transition-colors">Lịch sử đặt hàng</a>
+                    <a href="#about" class="hover:text-gray-700 transition-colors">Về Chúng Tôi</a>
+                    <a href="#contact" class="hover:text-gray-700 transition-colors">Liên Hệ</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="mobile-menu absolute top-full left-0 right-0 bg-white bg-opacity-90 p-4 flex-col items-center space-y-4 md:hidden">
+            <a href="#story" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Câu Chuyện</a>
+            <a href="#products" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Sản Phẩm</a>
+            <a href="#recipe-generator" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Gợi Ý Món</a>
+            <a href="#order-history" id="mobile-order-history-link" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Lịch sử đặt hàng</a>
+            <a href="#about" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Về Chúng Tôi</a>
+            <a href="#contact" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Liên Hệ</a>
+            <a href="#cart-page" id="mobile-cart-link" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Giỏ hàng</a>
+            <a href="#contact" class="block w-full text-center py-2 hover:bg-gray-200 rounded transition-colors">Hỗ trợ</a>
+        </div>
+
+        <!-- Hero Content -->
+        <div id="hero-content" class="z-10 mt-48 p-4">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight leading-tight text-primary-color-bg">BIỂN MẶN HƯƠNG RỪNG TRONG TỪNG HẠT MUỐI</h1>
+            <p class="mt-4 sm:mt-6 text-md sm:text-lg lg:text-xl font-light max-w-2xl mx-auto text-gray-700">Sự kết hợp tinh tế từ thiên nhiên Cà Mau: Muối biển đậm đà, cá phi tươi ngon và rau sam biển.</p>
+            <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#story" class="btn-primary secondary-color-bg text-white font-medium py-3 px-8 rounded-full shadow-lg">KHÁM PHÁ CÂU CHUYỆN</a>
+                <a href="#products" class="btn-primary bg-white text-emerald-700 font-medium py-3 px-8 rounded-full shadow-lg">MUA NGAY</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 lg:py-24">
+
+        <!-- Home Page Sections -->
+        <div id="home-page-content">
+             <!-- Giá trị cốt lõi Section -->
+            <section id="values" class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Tại sao chọn Đặc Sản Muối Cá Rau Sam Biển?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-2xl card-shadow border-2 border-gray-300">
+                        <img src="images/value-1.jpg" alt="Muối cá rau sam" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color mb-2">Hương vị độc đáo</h3>
+                        <p class="text-gray-600">Sự kết hợp tinh tế của các nguyên liệu tự nhiên tạo nên hương vị đặc trưng, khó quên.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-2xl card-shadow border-2 border-gray-300">
+                        <img src="images/value-2.jpg" alt="Rau sam biển tự nhiên" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color mb-2">Thiên nhiên và an toàn</h3>
+                        <p class="text-gray-600">Sản phẩm làm từ nguyên liệu tự nhiên, không chất bảo quản, an toàn tuyệt đối cho sức khỏe.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-2xl card-shadow border-2 border-gray-300">
+                        <img src="images/value-3.jpg" alt="Sử dụng muối cá rau sam" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color mb-2">Tiện lợi và đa năng</h3>
+                        <p class="text-gray-600">Có thể dùng để chấm trực tiếp, ướp thịt hoặc làm gia vị cho nhiều món ăn khác nhau.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-2xl card-shadow border-2 border-gray-300">
+                        <img src="images/value-4.jpg" alt="Nghề làm muối Cà Mau" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color mb-2">Gìn giữ bản sắc</h3>
+                        <p class="text-gray-600">Góp phần bảo tồn và phát huy giá trị ẩm thực đặc trưng của vùng biển Việt Nam.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="products" class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Sản Phẩm Của Chúng Tôi</h2>
+                <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+                <div id="no-results-message" class="text-center text-gray-500 hidden mt-8">Không tìm thấy sản phẩm nào phù hợp.</div>
+            </section>
+            <section id="recipe-generator" class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-8">Gợi Ý Món ✨</h2>
+                <p class="text-center text-gray-700 max-w-3xl mx-auto mb-8">Bạn có gì trong bếp? Hãy liệt kê các nguyên liệu và chúng tôi sẽ giúp bạn tìm một công thức món ăn hoàn hảo với Muối Cá Rau Sam Biển.</p>
+                <div class="bg-white rounded-2xl p-8 card-shadow max-w-2xl mx-auto border-2 border-gray-300">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="ingredients" class="block text-sm font-medium text-gray-700">Các nguyên liệu có sẵn (ví dụ: thịt gà, cà chua, hành tây)</label>
+                            <textarea id="ingredients" name="ingredients" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" placeholder="Nhập các nguyên liệu của bạn, cách nhau bởi dấu phẩy"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button id="generate-recipe-btn" class="btn-primary primary-color-bg text-white font-medium py-3 px-8 rounded-full shadow-md">Gợi ý món ăn ✨</button>
+                        </div>
+                        <div id="loading-indicator" class="text-center text-gray-600 mt-4 hidden">Đang tạo công thức...</div>
+                        <div id="recipe-output" class="prose max-w-none mt-6 p-4 bg-gray-50 rounded-lg text-gray-800 text-left" style="white-space: pre-wrap;"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="story" class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-8">Hành trình của một loại muối</h2>
+                <p class="text-center text-gray-700 max-w-3xl mx-auto mb-12">Dự án "Muối cá rau sam biển Cà Mau" ra đời từ mong muốn nâng cao giá trị các sản phẩm thô dồi dào của vùng đất Cà Mau, biến chúng thành một sản phẩm gia vị độc đáo, mang đậm hương vị bản sắc và góp phần phát triển kinh tế địa phương.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl p-6 card-shadow text-center transform transition-transform duration-300 hover:scale-105 border-2 border-gray-300">
+                        <img src="images/story-1.jpg" alt="Cánh đồng muối ở Việt Nam" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color">Tinh hoa từ hạt muối</h3>
+                        <p class="text-gray-600">Những cánh đồng muối trắng trải dài, nơi diêm dân Cà Mau chắt chiu từng giọt mồ hôi để tạo ra hạt muối tinh khiết, đậm đà vị biển.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow text-center transform transition-transform duration-300 hover:scale-105 border-2 border-gray-300">
+                        <img src="images/story-2.jpg" alt="Cá phi tươi ngon" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color">Đậm đà vị cá phi</h3>
+                        <p class="text-gray-600">Cá phi tươi ngon, được đánh bắt từ những cánh đồng nuôi thủy sản tự nhiên, là nguồn nguyên liệu chính tạo nên vị bùi và hương thơm đặc trưng.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow text-center transform transition-transform duration-300 hover:scale-105 border-2 border-gray-300">
+                        <img src="images/story-3.jpg" alt="Rau sam biển tự nhiên" class="w-full rounded-xl mb-4 h-48 object-cover">
+                        <h3 class="text-xl font-semibold accent-color">Hương rừng từ rau sam</h3>
+                        <p class="text-gray-600">Loài rau sam hoang dã, mọc ven biển, không chỉ mang lại hương vị mới lạ mà còn chứa nhiều dưỡng chất tốt cho sức khỏe.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Khách hàng nói gì về chúng tôi?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-6 card-shadow border-2 border-gray-300">
+                        <p class="text-gray-600 italic mb-4">"Vị muối rất khác biệt, thơm và bùi hơn hẳn các loại muối chấm thông thường. Cả nhà tôi đều rất thích!"</p>
+                        <div class="flex items-center">
+                            <img src="images/customer-1.jpg" alt="Khách hàng 1" class="w-12 h-12 rounded-full mr-4 object-cover">
+                            <div>
+                                <p class="font-semibold accent-color">Nguyễn Văn A</p>
+                                <p class="text-sm text-gray-500">Khách hàng tại Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow border-2 border-gray-300">
+                        <p class="text-gray-600 italic mb-4">"Sản phẩm rất sạch sẽ, bao bì đẹp mắt, mua về làm quà tặng rất hợp lý. Sẽ ủng hộ lâu dài!"</p>
+                        <div class="flex items-center">
+                            <img src="images/customer-2.jpg" alt="Khách hàng 2" class="w-12 h-12 rounded-full mr-4 object-cover">
+                            <div>
+                                <p class="font-semibold accent-color">Trần Thị B</p>
+                                <p class="text-sm text-gray-500">Khách hàng tại TP. Hồ Chí Minh</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="about" class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Về chúng tôi</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="flex flex-col items-center text-center">
+                        <img src="images/team-1.jpg" alt="Nguyễn Yến Nhi" class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-secondary-color-bg">
+                        <h3 class="text-xl font-semibold accent-color">Nguyễn Yến Nhi</h3>
+                        <p class="text-gray-600">Trưởng nhóm</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <img src="images/team-2.jpg" alt="Dương Chí Thiện" class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-secondary-color-bg">
+                        <h3 class="text-xl font-semibold accent-color">Dương Chí Thiện</h3>
+                        <p class="text-gray-600">Thành viên</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <img src="images/team-3.jpg" alt="Trương Trung Tính" class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-secondary-color-bg">
+                        <h3 class="text-xl font-semibold accent-color">Trương Trung Tính</h3>
+                        <p class="text-gray-600">Thành viên</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <img src="images/team-4.jpg" alt="Nguyễn Đăng Khoa" class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-secondary-color-bg">
+                        <h3 class="text-xl font-semibold accent-color">Nguyễn Đăng Khoa</h3>
+                        <p class="text-gray-600">Thành viên</p>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="mb-16 lg:mb-24">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Liên Hệ Với Chúng Tôi</h2>
+                <div class="bg-white rounded-2xl p-8 card-shadow max-w-2xl mx-auto border-2 border-gray-300">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Tên của bạn</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Nội dung</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn-primary primary-color-bg text-white font-medium py-3 px-8 rounded-full shadow-md">Gửi tin nhắn</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- Cart Page Section -->
+        <div id="cart-page-content" class="hidden">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Giỏ Hàng Của Bạn</h2>
+            <div id="cart-items" class="space-y-6"></div>
+            <div id="cart-summary" class="mt-8 p-6 bg-white rounded-2xl card-shadow border-2 border-gray-300">
+                <div class="flex justify-between font-semibold text-lg">
+                    <span>Tổng cộng:</span>
+                    <span id="cart-total">0₫</span>
+                </div>
+                <button id="checkout-btn" class="mt-6 w-full btn-primary secondary-color-bg text-white font-medium py-3 rounded-full shadow-md">Thanh Toán</button>
+            </div>
+            <div id="empty-cart-message" class="text-center text-gray-500 mt-8 hidden">Giỏ hàng của bạn đang trống.</div>
+        </div>
+        
+        <!-- Order History Page Section -->
+        <div id="order-history-content" class="hidden">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-primary-color-bg mb-12">Lịch Sử Đặt Hàng</h2>
+            <div id="order-history-list" class="space-y-8">
+                <!-- Order history items will be displayed here -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="primary-color-bg text-white py-12 lg:py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center">
+                <div class="space-y-4 text-center lg:text-left">
+                    <h4 class="font-bold text-xl mb-4 text-accent-color">Liên Hệ</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center justify-center lg:justify-start"><i class="fas fa-map-marker-alt w-6 text-orange-200"></i><span class="ml-2 text-sm">Ấp Tân Thành, xã Nguyễn Việt Khái, huyện Phú Tân, tỉnh Cà Mau</span></li>
+                        <li class="flex items-center justify-center lg:justify-start"><i class="fas fa-phone-alt w-6 text-orange-200"></i><span class="ml-2 text-sm">Điện thoại: 0945890977</span></li>
+                        <li class="flex items-center justify-center lg:justify-start"><i class="fas fa-envelope w-6 text-orange-200"></i><span class="ml-2 text-sm">Email: contact@yennhi.com</span></li>
+                        <li class="flex items-center justify-center lg:justify-start"><i class="fas fa-globe w-6 text-orange-200"></i><span class="ml-2 text-sm">Website: <a href="https://thienvh8904-vip.github.io/cososanxuatyennhi/" target="_blank" rel="noopener noreferrer" class="hover:underline">https://thienvh8904-vip.github.io/cososanxuatyennhi/</a></span></li>
+                        <li class="flex items-center justify-center lg:justify-start"><i class="fab fa-tiktok w-6 text-orange-200"></i><span class="ml-2 text-sm">Tiktok: cososanxuatyennhi</span></li>
+                    </ul>
+                </div>
+                <div class="space-y-4 text-center lg:text-left">
+                    <h4 class="font-bold text-xl mb-4 text-accent-color">Thông tin & Chính sách</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="block text-sm hover:underline transition-colors">Về Chúng Tôi</a></li>
+                        <li><a href="#products" class="block text-sm hover:underline transition-colors">Sản Phẩm</a></li>
+                        <li><a href="#story" class="block text-sm hover:underline transition-colors">Câu Chuyện</a></li>
+                        <li><a href="#contact" class="block text-sm hover:underline transition-colors">Liên Hệ</a></li>
+                        <li><a href="https://thuvienphapluat.vn/van-ban/Cong-nghe-thong-tin/Nghi-dinh-13-2023-ND-CP-bao-ve-du-lieu-ca-nhan-562356.aspx" target="_blank" rel="noopener noreferrer" class="block text-sm hover:underline transition-colors">Chính sách bảo mật</a></li>
+                        <li><a href="https://thuvienphapluat.vn/van-ban/Thuong-mai/Nghi-dinh-52-2013-ND-CP-thuong-mai-dien-tu-182233.aspx" target="_blank" rel="noopener noreferrer" class="block text-sm hover:underline transition-colors">Điều khoản dịch vụ</a></li>
+                        <li><a href="https://luatvietnam.vn/tin-phap-luat/luat-bao-ve-quyen-loi-nguoi-tieu-dung-2023-diem-moi-can-biet-230-94238-article.html" target="_blank" rel="noopener noreferrer" class="block text-sm hover:underline transition-colors">Chính sách đổi trả</a></li>
+                        <li><a href="https://thuvienphapluat.vn/van-ban/Giao-thong-van-tai/Luat-Buu-chinh-2010-109656.aspx" target="_blank" rel="noopener noreferrer" class="block text-sm hover:underline transition-colors">Chính sách vận chuyển</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- General Message Modal -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="message-modal-close-btn">&times;</span>
+            <p id="modal-message" class="text-lg font-semibold mb-4"></p>
+            <button id="modal-ok-btn" class="btn-primary primary-color-bg text-white font-medium py-2 px-6 rounded-full">Đóng</button>
+        </div>
+    </div>
+    
+    <!-- Login/Info Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="login-modal-close-btn">&times;</span>
+            <h3 class="text-2xl font-bold mb-4 text-primary-color-bg">Thông tin giao hàng</h3>
+            <p class="text-gray-600 mb-6">Vui lòng cung cấp thông tin để tiếp tục thanh toán.</p>
+            <form id="login-form" class="space-y-4 text-left">
+                <div>
+                    <label for="customer-name" class="block text-sm font-medium text-gray-700">Họ và tên</label>
+                    <input type="text" id="customer-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" required>
+                </div>
+                <div>
+                    <label for="customer-phone" class="block text-sm font-medium text-gray-700">Số điện thoại</label>
+                    <input type="tel" id="customer-phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" required>
+                </div>
+                <div>
+                    <label for="customer-address" class="block text-sm font-medium text-gray-700">Địa chỉ</label>
+                    <textarea id="customer-address" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" required></textarea>
+                </div>
+                <div class="text-center pt-4">
+                    <button type="submit" class="btn-primary secondary-color-bg text-white font-medium py-3 px-8 rounded-full shadow-md">Xác nhận và Thanh toán</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        // --- STATE MANAGEMENT ---
+        const products = [{ id: 'muoi-ca-rau-sam-30g', name: 'Muối cá rau sam biển Cà Mau (Hũ 30g)', price: 25000, image: 'images/product-1.jpg', description: 'Hũ nhỏ tiện lợi, mang hương vị đặc trưng của muối cá rau sam biển Cà Mau.' }, { id: 'muoi-ca-rau-sam-70g', name: 'Muối cá rau sam biển Cà Mau (Hũ 70g)', price: 35000, image: 'images/product-2.jpg', description: 'Hũ vừa, là sự lựa chọn hoàn hảo cho những tín đồ yêu thích vị mặn mà, bùi béo.' }, { id: 'combo-2-hu-30g', name: 'Combo 2 hũ Muối cá rau sam biển Cà Mau (30g)', price: 45000, image: 'images/product-3.jpg', description: 'Tiết kiệm hơn với combo 2 hũ 30g, lý tưởng để dùng thử hoặc làm quà tặng.' }, { id: 'combo-3-hu-70g', name: 'Combo 3 hũ Muối cá rau sam biển Cà Mau (70g)', price: 95000, image: 'images/product-4.jpg', description: 'Siêu tiết kiệm với combo 3 hũ 70g, đáp ứng nhu cầu sử dụng lâu dài.' }];
+        const cart = [];
+        let orderHistory = [];
+        let currentUser = null;
+
+        // --- UTILITY FUNCTIONS ---
+        function showMessage(message) {
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('message-modal').style.display = 'flex';
+        }
+
+        function closeMessageModal() {
+            document.getElementById('message-modal').style.display = 'none';
+        }
+        
+        function showLoginModal() {
+             document.getElementById('login-modal').style.display = 'flex';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+
+        // --- PAGE NAVIGATION ---
+        function showPage(pageId) {
+            ['home-page-content', 'cart-page-content', 'order-history-content'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+
+            if (pageId === 'cart-page-content') renderCart();
+            if (pageId === 'order-history-content') renderOrderHistory();
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderProducts(filteredProducts = products) {
+            const productList = document.getElementById('product-list');
+            const noResultsMessage = document.getElementById('no-results-message');
+            productList.innerHTML = '';
+            noResultsMessage.classList.toggle('hidden', filteredProducts.length > 0);
+
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-2xl p-6 card-shadow text-center transform transition-transform duration-300 hover:scale-105 border-2 border-gray-300';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full rounded-xl mb-4 h-48 object-cover">
+                    <h3 class="text-xl font-semibold accent-color mb-2">${product.name}</h3>
+                    <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                    <p class="text-2xl font-bold primary-color-bg text-white p-2 rounded-lg mb-4">${product.price.toLocaleString('vi-VN')}₫</p>
+                    <button class="add-to-cart-btn btn-primary secondary-color-bg text-white font-medium py-2 px-6 rounded-full" data-id="${product.id}">Thêm vào giỏ</button>
+                `;
+                productList.appendChild(productCard);
+            });
+
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => addToCart(e.target.dataset.id));
+            });
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            emptyCartMessage.classList.toggle('hidden', cart.length > 0);
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex items-center space-x-4 p-4 bg-white rounded-lg card-shadow';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded-md object-cover">
+                    <div class="flex-grow">
+                        <h4 class="font-semibold text-gray-800">${item.name}</h4>
+                        <p class="text-sm text-gray-500">${item.price.toLocaleString('vi-VN')}₫ x ${item.quantity}</p>
+                    </div>
+                    <button class="remove-from-cart-btn text-red-500 hover:text-red-700" data-id="${item.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
+            cartTotalElement.textContent = `${total.toLocaleString('vi-VN')}₫`;
+
+            document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => removeFromCart(e.currentTarget.dataset.id));
+            });
+        }
+        
+        function renderOrderHistory() {
+            const historyList = document.getElementById('order-history-list');
+            historyList.innerHTML = '';
+
+            if (orderHistory.length === 0) {
+                historyList.innerHTML = '<p class="text-center text-gray-500">Bạn chưa có đơn hàng nào.</p>';
+                return;
+            }
+
+            orderHistory.slice().reverse().forEach((order, index) => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'bg-white rounded-2xl p-6 card-shadow border-2 border-gray-300';
+                
+                const itemsHtml = order.items.map(item => `
+                    <li class="flex justify-between items-center text-sm">
+                        <span>${item.name} (x${item.quantity})</span>
+                        <span class="font-medium">${(item.price * item.quantity).toLocaleString('vi-VN')}₫</span>
+                    </li>
+                `).join('');
+
+                orderCard.innerHTML = `
+                    <div class="flex justify-between items-center border-b pb-3 mb-3">
+                        <div>
+                            <h4 class="font-bold text-lg text-primary-color-bg">Đơn hàng #${orderHistory.length - index}</h4>
+                            <p class="text-sm text-gray-500">Ngày đặt: ${order.date}</p>
+                        </div>
+                        <div class="font-bold text-xl accent-color">${order.total.toLocaleString('vi-VN')}₫</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold mb-2">Thông tin giao hàng</h5>
+                            <p class="text-sm text-gray-700"><b>Tên:</b> ${order.customer.name}</p>
+                            <p class="text-sm text-gray-700"><b>SĐT:</b> ${order.customer.phone}</p>
+                            <p class="text-sm text-gray-700"><b>Địa chỉ:</b> ${order.customer.address}</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2">Sản phẩm</h5>
+                            <ul class="space-y-1">${itemsHtml}</ul>
+                        </div>
+                    </div>
+                `;
+                historyList.appendChild(orderCard);
+            });
+        }
+
+        // --- CORE LOGIC ---
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartCount();
+            showMessage(`Đã thêm "${product.name}" vào giỏ hàng.`);
+        }
+
+        function removeFromCart(productId) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            if (itemIndex > -1) {
+                cart.splice(itemIndex, 1);
+                updateCartCount();
+                renderCart();
+            }
+        }
+        
+        function processCheckout() {
+            const newOrder = {
+                id: Date.now(),
+                customer: currentUser,
+                items: [...cart],
+                total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+                date: new Date().toLocaleString('vi-VN')
+            };
+            orderHistory.push(newOrder);
+            cart.length = 0; // Clear the cart
+            
+            updateCartCount();
+            showMessage('Đặt hàng thành công! Cảm ơn bạn đã mua sắm.');
+            showPage('order-history-content');
+        }
+
+        // --- EVENT LISTENERS ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial render
+            renderProducts();
+            updateCartCount();
+
+            // Modal close buttons
+            document.getElementById('message-modal-close-btn').addEventListener('click', closeMessageModal);
+            document.getElementById('modal-ok-btn').addEventListener('click', closeMessageModal);
+            document.getElementById('login-modal-close-btn').addEventListener('click', closeLoginModal);
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('active');
+            });
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('active'));
+            });
+
+            // Page navigation
+            document.getElementById('home-link').addEventListener('click', (e) => { e.preventDefault(); showPage('home-page-content'); });
+            document.getElementById('cart-link').addEventListener('click', (e) => { e.preventDefault(); showPage('cart-page-content'); });
+            document.getElementById('mobile-cart-link').addEventListener('click', (e) => { e.preventDefault(); showPage('cart-page-content'); });
+            document.getElementById('order-history-link').addEventListener('click', (e) => { e.preventDefault(); showPage('order-history-content'); });
+            document.getElementById('mobile-order-history-link').addEventListener('click', (e) => { e.preventDefault(); showPage('order-history-content'); });
+
+            // Search functionality
+            const performSearch = () => {
+                const searchTerm = document.getElementById('search-input').value.toLowerCase();
+                const filteredProducts = products.filter(p => p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm));
+                renderProducts(filteredProducts);
+            };
+            document.getElementById('search-button').addEventListener('click', performSearch);
+            document.getElementById('search-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+
+            // Forms and buttons
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showMessage('Tin nhắn của bạn đã được gửi thành công!');
+                e.target.reset();
+            });
+
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                if (cart.length === 0) {
+                    showMessage('Giỏ hàng của bạn đang trống.');
+                    return;
+                }
+                if (!currentUser) {
+                    showLoginModal();
+                } else {
+                    processCheckout();
+                }
+            });
+            
+            document.getElementById('login-btn').addEventListener('click', showLoginModal);
+            
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                currentUser = {
+                    name: document.getElementById('customer-name').value,
+                    phone: document.getElementById('customer-phone').value,
+                    address: document.getElementById('customer-address').value,
+                };
+                closeLoginModal();
+                const loginBtn = document.getElementById('login-btn');
+                loginBtn.textContent = `Chào, ${currentUser.name.split(' ')[0]}`;
+                loginBtn.disabled = true;
+                processCheckout();
+            });
+
+            // Recipe Generator (unchanged)
+            document.getElementById('generate-recipe-btn').addEventListener('click', async () => {
+                const ingredients = document.getElementById('ingredients').value;
+                const outputDiv = document.getElementById('recipe-output');
+                const loadingIndicator = document.getElementById('loading-indicator');
+
+                if (!ingredients.trim()) {
+                    showMessage("Vui lòng nhập các nguyên liệu bạn có.");
+                    return;
+                }
+
+                loadingIndicator.classList.remove('hidden');
+                outputDiv.textContent = '';
+
+                try {
+                    const prompt = `Bạn là một chuyên gia ẩm thực. Dựa trên các nguyên liệu sau và sử dụng "Muối Cá Rau Sam Biển", hãy gợi ý một công thức món ăn hấp dẫn. Trả lời bằng tiếng Việt. Cấu trúc phản hồi: - Tiêu đề món ăn - Giới thiệu ngắn gọn - Nguyên liệu chi tiết (số lượng) - Hướng dẫn thực hiện (từng bước rõ ràng)\n\nNguyên liệu có sẵn: ${ingredients}.`;
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) throw new Error('API request failed.');
+                    
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    outputDiv.textContent = text || "Xin lỗi, tôi không thể tạo công thức lúc này. Vui lòng thử lại sau.";
+                } catch (error) {
+                    console.error("Error generating recipe:", error);
+                    outputDiv.textContent = "Đã xảy ra lỗi trong quá trình tạo công thức. Vui lòng thử lại.";
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
